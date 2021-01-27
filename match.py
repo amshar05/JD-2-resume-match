@@ -64,6 +64,7 @@ z3 = [i for i in z2 if len(i) > 2]
 
 tagged = nltk.pos_tag(z3)
 
+#list of all Parts of speech those are being filtered
 to_check = ["JJ", "JJS","NNS" "NNP","RB","VBG"]
 
 final =[]
