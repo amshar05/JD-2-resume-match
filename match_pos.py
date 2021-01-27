@@ -22,6 +22,7 @@ jobDesc_2 = docx2txt.process(jobDesc)
 
 
 ############addition########
+#list of all Parts of speech those are being filtered
 to_check = ["JJ", "JJS","NNS" "NNP","RB","VBG"]
 
 ###########REsume conversion##########
