@@ -12,9 +12,9 @@ pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', None)
 pd.set_option('display.max_colwidth', None)
-resume = "/Users/amit/Desktop/mohit_project/Ananthi Viswakumar.docx" # Change path
+resume = "" # ADD path
 
-jobDesc = "/Users/amit/Desktop/mohit_project/Senior Project Manager - JG 3.docx" # Change path
+jobDesc = "" # ADD path
 
 resume_2 = docx2txt.process(resume)
 
@@ -41,7 +41,7 @@ count_matrix = cv.fit_transform(text)
 matchPercentage = cosine_similarity(count_matrix)[0][1]*100
 matchPercentage = round(matchPercentage,2)
 
-print("\n Result for Ananthi Viswakumar\n")
+print("\n Result for ~NAME~ \n")
 
 print("\nYour Resume matches about: " + str( matchPercentage)+ "% of the job description")
 
