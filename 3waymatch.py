@@ -12,11 +12,11 @@ pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', None)
 pd.set_option('display.max_colwidth', None)
-resume = "/Users/amit/Desktop/mohit_project/Ananthi Viswakumar.docx" # Change path
+resume = "" # ADD path
 
-jobDesc = "/Users/amit/Desktop/mohit_project/Senior Project Manager - JG 3.docx" # Change path
+jobDesc = "" # ADD path
 
-skill = "/Users/amit/Desktop/mohit_project/technical_skills_list.txt"
+skill = "" #Add path of the skill set file
 inter_skill = []
 
 with open(skill,'r') as f:
@@ -70,7 +70,7 @@ count_matrix_2 = cv.fit_transform(text_2)
 matchPercentage_2 = cosine_similarity(count_matrix_2)[0][1]*100
 matchPercentage_2 = round(matchPercentage_2,2)
 
-print("\n Result for Ananthi Viswakumar\n")
+print("\n Result for ~NAME~ \n")
 
 print("\nYour Resume matches about: " + str( matchPercentage_2)+ "% of the job description")
 
