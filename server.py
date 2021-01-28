@@ -23,11 +23,18 @@ def result():
 		if request.files['jd'].filename != "":
 			jd = request.files['jd']
 			if request.files['resume'].filename!="":
-				resume = request.files['resume']
+				resume = request.files.getlist('resume')
+				print("this is the list:")
+				name_list = []
+				i = 0
+				while i < len(resume):
+					name_list.append(resume[i].filename.split(".")[0])
+					i=i+1
 
 				percentage,word_list,common_list=matcher(resume,jd)
-
-				return render_template("result.html",percentage=percentage,word_list=word_list, common_list= common_list,count_skill=len(word_list),count_common=len(common_list))
+				zip_list = zip(percentage,word_list,common_list,name_list)
+				
+				return render_template("result.html",zip_list = zip_list)#percentage=percentage,word_list=word_list, common_list= common_list,count_skill=len(word_list),count_common=len(common_list))
 			else:
 				return render_template("notfound.html")
 		else: 
@@ -37,5 +44,8 @@ def result():
 if __name__ == '__main__':
     app.debug = True
     app.run(host = '0.0.0.0', port= 5000)
+
+
+
 
 
