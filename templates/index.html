@@ -14,10 +14,10 @@
 <form action="{{ url_for('result') }}" method="POST" enctype="multipart/form-data">
 
 <label for="myfile">Select a Job Description:</label>
-<input type="file" id="jd" name="jd">
+<input type="file" id="jd" name="jd" accept=".doc,.docx">
 <br><br>
-<label for="myfile">Select a Resume:</label>
-<input type="file" id="resume" name="resume">
+<label for="myfile">Select Resume : <br>(you can select multiple resumes) </label>
+<input type="file" id="resume" name="resume" accept=".doc,.docx" multiple>
 <br><br>
 
 <input type="submit" value="Submit">
