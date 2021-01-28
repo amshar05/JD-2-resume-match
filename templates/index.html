@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JD2Resume</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+
+
+<div class="input">
+<h3> Please upload Job Description and Resume here </h3>
+
+<form action="{{ url_for('result') }}" method="POST" enctype="multipart/form-data">
+
+<label for="myfile">Select a Job Description:</label>
+<input type="file" id="jd" name="jd">
+<br><br>
+<label for="myfile">Select a Resume:</label>
+<input type="file" id="resume" name="resume">
+<br><br>
+
+<input type="submit" value="Submit">
+
+</form>
+
+</div>
+
+
+</body>
+</html>
