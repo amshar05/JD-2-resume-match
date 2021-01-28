@@ -6,28 +6,31 @@
 </head>
 <body>
 <br>
-<h2> Resume to Job Description match percent is <strong>{{ percentage }}%</strong></h2>
+{% for i,j,k,l in zip_list %}
+<h2> {{ l }}'s Resume  matches <strong>{{ i }}%</strong> to Job Description</h2>
 <br>
 
-<h3>{{ count_skill }} skills present in JD but not present in Resume are :</h3>
+<h3>{{ j|length }} skills present in JD but not present in Resume are :</h3>
 <ul class="columns" data-columns="5">
-{% for i in word_list %}
+	{% for a in j %}
 
-<li>{{i}}</li>
+<li>{{a}}</li>
 
-{% endfor %}
+	{% endfor %}
 </ul>
 <br>
 
-<h3>{{ count_common }} skills present in Job Description and Resume are :</h3>
+<h3>{{ k|length }} skills present in Job Description and Resume are :</h3>
 <ul class="columns" data-columns="5">
-{% for i in common_list %}
+	{% for b in k %}
 
-<li>{{i}}</li>
+<li>{{b}}</li>
 
-{% endfor %}
+	{% endfor %}
 </ul>
 <br>
+<hr>
+{% endfor %}
 
 
 
