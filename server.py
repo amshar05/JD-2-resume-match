@@ -1,5 +1,4 @@
 from flask import redirect,  url_for, render_template,request,Flask
-from flask_ngrok import run_with_ngrok
 from match_pos import matcher
 import docx2txt
 from sklearn.feature_extraction.text import CountVectorizer
@@ -30,9 +29,13 @@ def result():
 				while i < len(resume):
 					name_list.append(resume[i].filename.split(".")[0])
 					i=i+1
-
-				percentage,word_list,common_list=matcher(resume,jd)
-				zip_list = zip(percentage,word_list,common_list,name_list)
+				id_list = []
+				percentage,word_list,common_list=matcher(resume,jd)				
+				k=0
+				while k < len(percentage):
+					id_list.append(k)
+					k=k+1
+				zip_list = zip(percentage,word_list,common_list,name_list,id_list)
 				
 				return render_template("result.html",zip_list = zip_list)#percentage=percentage,word_list=word_list, common_list= common_list,count_skill=len(word_list),count_common=len(common_list))
 			else:
@@ -44,8 +47,5 @@ def result():
 if __name__ == '__main__':
     app.debug = True
     app.run(host = '0.0.0.0', port= 5000)
-
-
-
 
 
