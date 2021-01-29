@@ -152,5 +152,3 @@ if __name__ == "__main__":
 content_2 = nltk.pos_tag([i for i in content if i])
 
 """
-
-
