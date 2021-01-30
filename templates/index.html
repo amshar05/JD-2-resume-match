@@ -10,14 +10,15 @@
 
 <div class="input">
 <h3> Please upload Job Description and Resume here </h3>
-
+<br><br>
 <form action="{{ url_for('result') }}" method="POST" enctype="multipart/form-data">
 
 <label for="myfile">Select a Job Description:</label>
 <input type="file" id="jd" name="jd" accept=".doc,.docx">
 <br><br>
-<label for="myfile">Select Resume : <br>(you can select multiple resumes) </label>
-<input type="file" id="resume" name="resume" accept=".doc,.docx" multiple>
+<label for="myfile">Select Resume : </label>
+<input type="file" id="resume" name="resume" accept=".doc,.docx" multiple><br>
+<span class ="note">* You can select multiple resumes</span> 
 <br><br>
 
 <button id="submit-search" type="submit" value="submit">Compare</button>
