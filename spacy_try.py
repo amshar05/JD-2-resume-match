@@ -8,6 +8,11 @@ from collections import Counter
 import math
 from statistics import mean
 import docx2txt
+import nltk
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+
 # Load English tokenizer, tagger, parser, NER and word vectors
 nlp = spacy.load("en_core_web_sm")
 
@@ -25,7 +30,90 @@ def spacy_match(res,jd):
 
 
 		doc = nlp(text)
+		#print(doc)
 		doc2 = nlp(text_2)
+
+		resume_2_2 = [chunk.text for chunk in doc.noun_chunks]
+		jobDesc_2_2 = [chunk.text for chunk in doc2.noun_chunks]
+
+#converting spacy created list to text again
+		
+		resume_2 = (" ".join(resume_2_2))
+		jobDesc_2 = (" ".join(jobDesc_2_2))
+		############addition########
+		to_check = ["JJ","NNS","RB","VB","NN","VBZ","NNP"]
+		#to_check=['ADJ']
+		###########REsume conversion##########
+
+		inter_res =[] 	# intermediate jd list
+
+		for i in resume_2.strip().split():
+			inter_res.append(i)
+
+		inter_res_nltk = nltk.pos_tag([i for i in inter_res if i])
+		#print(inter_res_nltk)
+
+
+		inter_final_res=[]
+		i = 0
+		while i<len(inter_res_nltk):
+			if inter_res_nltk[i][1] in to_check:
+				inter_final_res.append(inter_res_nltk[i][0])
+			else:
+				pass
+			i=i+1
+
+		inter_final_res_2 = [i for i in inter_final_res if len(i) > 3]	
+
+		resume_3 = (" ".join(inter_final_res_2))
+
+
+
+		#######JD conversion
+		inter_jd =[] 	# intermediate jd list
+
+		for i in jobDesc_2.strip().split():
+			inter_jd.append(i)
+
+		inter_jd_nltk = nltk.pos_tag([i for i in inter_jd if i])
+
+		inter_final_jd=[]
+		i=0
+		while i<len(inter_jd_nltk):
+			if inter_jd_nltk[i][1] in to_check:
+				inter_final_jd.append(inter_jd_nltk[i][0])
+			else:
+				pass
+			i=i+1
+		inter_final_jd_2 = [i for i in inter_final_jd if len(i) > 3]
+		jobDesc_3 = (" ".join(inter_final_jd_2))
+
+		####################
+
+
+		text = [resume_3,jobDesc_3]
+
+		#print(text)
+		#######sklearn
+
+		cv = CountVectorizer()
+		#print("tbis is cv ")
+		#print(cv)
+		count_matrix = cv.fit_transform(text)
+		#print("\n this is count matrix")
+		#print(count_matrix)
+
+		#print("\n Similarity Scores: ")
+		#print(cosine_similarity(count_matrix))
+
+
+		# Match percentage
+
+		matchPercentage = cosine_similarity(count_matrix)[0][1]*100
+		matchPercentage = round(matchPercentage,2)
+		print(matchPercentage)
+
+
 
 		jd_1 = []
 		res_1= []
@@ -94,7 +182,7 @@ def spacy_match(res,jd):
 		common_word_1=list(dict.fromkeys(common_word_1))
 		
 
-		score_22.append(mean_score_2)
+		score_22.append(matchPercentage)
 		common_score_list.append(common_word_1)
 		not_common_list.append(not_common)
 
@@ -105,7 +193,7 @@ def spacy_match(res,jd):
 
 if __name__ == "__main__":
 	loc1 = ["/Users/amit/Desktop/mohit_project/Ananthi Viswakumar.docx"]
-	loc2=str("/Users/amit/Desktop/mohit_project/JDs.docx")
+	loc2="/Users/amit/Desktop/mohit_project/Senior Project Manager - JG 3.docx"
 	print(spacy_match(loc1,loc2))
 
 #csObj = cs(jd, res)
