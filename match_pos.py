@@ -3,9 +3,10 @@ import docx2txt
 from sklearn.feature_extraction.text import CountVectorizer
 
 from sklearn.metrics.pairwise import cosine_similarity
-
+import spacy
 import pandas as pd
 import nltk
+nlp = spacy.load("en_core_web_sm")
 
 def matcher(res,jd):
 	#nltk.download()
@@ -18,14 +19,24 @@ def matcher(res,jd):
 
 		jobDesc = jd #"/Users/amit/Desktop/mohit_project/Senior Project Manager - JG 3.docx" # Change path
 
-		resume_2 = docx2txt.process(resume)
+		text= docx2txt.process(resume)
 
-		jobDesc_2 = docx2txt.process(jobDesc)
+		text_2= docx2txt.process(jobDesc)
 
+# adding spacy transformations
+		resume_2_1 = nlp(text)
+		jobDesc_2_1 = nlp(text_2) 
 
+		resume_2_2 = [chunk.text for chunk in resume_2_1.noun_chunks]
+		jobDesc_2_2 = [chunk.text for chunk in jobDesc_2_1.noun_chunks]
+
+#converting spacy created list to text again
+		
+		resume_2 = (" ".join(resume_2_2))
+		jobDesc_2 = (" ".join(jobDesc_2_2))
 		############addition########
 		to_check = ["JJ","NNS","RB","VB","NN","VBZ","NNP"]
-
+		#to_check=['ADJ']
 		###########REsume conversion##########
 
 		inter_res =[] 	# intermediate jd list
@@ -34,7 +45,7 @@ def matcher(res,jd):
 			inter_res.append(i)
 
 		inter_res_nltk = nltk.pos_tag([i for i in inter_res if i])
-
+		#print(inter_res_nltk)
 
 
 		inter_final_res=[]
@@ -60,8 +71,6 @@ def matcher(res,jd):
 
 		inter_jd_nltk = nltk.pos_tag([i for i in inter_jd if i])
 
-
-
 		inter_final_jd=[]
 		i=0
 		while i<len(inter_jd_nltk):
@@ -71,7 +80,6 @@ def matcher(res,jd):
 				pass
 			i=i+1
 		inter_final_jd_2 = [i for i in inter_final_jd if len(i) > 3]
-
 		jobDesc_3 = (" ".join(inter_final_jd_2))
 
 		####################
@@ -83,7 +91,11 @@ def matcher(res,jd):
 		#######sklearn
 
 		cv = CountVectorizer()
+		#print("tbis is cv ")
+		#print(cv)
 		count_matrix = cv.fit_transform(text)
+		#print("\n this is count matrix")
+		#print(count_matrix)
 
 		#print("\n Similarity Scores: ")
 		#print(cosine_similarity(count_matrix))
@@ -133,17 +145,20 @@ def matcher(res,jd):
 		#print("\n")
 		matchper.append(matchPercentage)
 		uncommon_list.append(final)
+
 		common_list.append(common)
+		length = []
+		for i in common_list:
+			length.append(len(i))
 
 
 
-
-	return matchper,uncommon_list,common_list
+	return matchper,uncommon_list,common_list,length
 
 if __name__ == "__main__":
-	loc1 = []
+	loc1 = [""]
 	loc2=""
-	matcher(loc1,loc2)
+	print(matcher(loc1,loc2))
 #print(y.query('resume == "0"',inplace = True))
 
 """
