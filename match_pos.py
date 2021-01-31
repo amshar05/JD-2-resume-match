@@ -153,7 +153,7 @@ def matcher(res,jd):
 
 
 
-	return matchper,uncommon_list,common_list,length
+	return matchper,uncommon_list,common_list
 
 if __name__ == "__main__":
 	loc1 = [""]
