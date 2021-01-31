@@ -3,15 +3,18 @@
 <head>
 	<title>JD2Resume</title>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
 </head>
 <body>
-
-
+<div class="container">
+<div class="brain-img">
+	
+</div>
 
 <div class="input">
 <h3> Please upload Job Description and Resume here </h3>
 <br><br>
-<form action="{{ url_for('result') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ url_for('newresult') }}" method="POST" enctype="multipart/form-data">
 
 <label for="myfile">Select a Job Description:</label>
 <input type="file" id="jd" name="jd" accept=".doc,.docx">
@@ -22,11 +25,10 @@
 <br><br>
 
 <button id="submit-search" type="submit" value="submit">Compare</button>
-
 </form>
 
 </div>
-
+</div>
 
 </body>
 </html>
