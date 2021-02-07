@@ -1,5 +1,6 @@
 from flask import redirect,  url_for, render_template,request,Flask
 from match_pos import matcher
+from spacy_try import spacy_match
 import docx2txt
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -11,7 +12,7 @@ app = Flask(__name__)
 @app.route('/',methods=['GET','POST'])
 
 def home():
-	return render_template('Index.html')
+	return render_template('index.html')
 
 @app.route("/result", methods=['GET','POST'])
 
